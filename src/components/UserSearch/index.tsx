@@ -18,7 +18,6 @@ import {
   Name,
   Profile,
   RepositoryContent,
-  RepositoryFollowers,
   RepositoryResult,
   RepositoryTitle,
   SecondResult,
@@ -27,6 +26,7 @@ import {
   Wrapper,
 } from "../StyledComponent";
 import iconMoon from "../../assets/images/iconMoon.svg";
+import iconSun from "../../assets/images/iconSun.svg";
 import iconMoonWhite from "../../assets/images/iconMoonWhite.svg";
 import iconLocation from "../../assets/images/iconLocation.svg";
 import iconLocationWhite from "../../assets/images/iconLocationWhite.svg";
@@ -39,18 +39,35 @@ import iconGithubWhite from "../../assets/images/iconGithubWhite.svg";
 import iconSearch from "../../assets/images/iconSearch.svg";
 import iconClose from "../../assets/images/iconClose.svg";
 
-import { Button } from "antd";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+type UserData = {
+  name: string;
+  login: string;
+  avatar_url: string;
+  created_at: string;
+  bio: string | null;
+  public_repos: number;
+  followers: number;
+  following: number;
+  location: string | null;
+  blog: string | null;
+  html_url: string;
+};
 const UserSearch = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [username, setUsername] = useState("");
-  const [userData, setUserData] = useState(null);
-  const [showError, setShowError] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>("");
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [showError, setShowError] = useState<boolean>(false);
+
   const handleToggleTheme = () => {
     setIsDarkMode(!isDarkMode);
+    localStorage.setItem("isDarkMode", !isDarkMode ? "true" : "false");
   };
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("isDarkMode");
+    setIsDarkMode(storedTheme === "true");
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -83,11 +100,7 @@ const UserSearch = () => {
             {isDarkMode ? (
               <>
                 LIGHT
-                <img
-                  src={iconMoonWhite}
-                  alt=""
-                  style={{ marginLeft: "28px" }}
-                />
+                <img src={iconSun} alt="" style={{ marginLeft: "28px" }} />
               </>
             ) : (
               <>
@@ -98,11 +111,17 @@ const UserSearch = () => {
           </ButtonHeader>
         </Header>
         <InputSearch
+          value={username}
           isDarkMode={isDarkMode}
           placeholder="Search Github username..."
           enterButton={<ButtonSearch>Search</ButtonSearch>}
           prefix={
-            <img src={iconSearch} alt="" style={{ marginRight: "11px" }}></img>
+            <img
+              src={iconSearch}
+              alt=""
+              style={{ marginRight: "11px" }}
+              onClick={handleSearch}
+            ></img>
           }
           suffix={
             showError && (
@@ -111,9 +130,19 @@ const UserSearch = () => {
                   color: "#FF0000",
                   marginRight: "31px",
                   fontSize: "16px",
+                  display: "flex",
+                  alignItems: "center",
                 }}
               >
-                <img src={iconClose} alt="" style={{ marginRight: "12px" }} />
+                <img
+                  src={iconClose}
+                  alt=""
+                  style={{ marginRight: "12px" }}
+                  onClick={() => {
+                    setUsername("");
+                    setShowError(false);
+                  }}
+                />
                 No results
               </span>
             )
@@ -121,7 +150,10 @@ const UserSearch = () => {
           onSearch={handleSearch}
           onChange={(event) => setUsername(event.target.value)}
         />
-        <Content isDarkMode={isDarkMode}>
+        <Content
+          isDarkMode={isDarkMode}
+          style={{ display: showError ? "none" : "flex" }}
+        >
           {userData && (
             <>
               <div>
@@ -224,7 +256,7 @@ const UserSearch = () => {
                           )}
                         </CommunicationsIcons>
                         <CommunicationsResults isDarkMode={isDarkMode}>
-                          {userData.blog ?? "Not available"}
+                          {userData.html_url ?? "Not available"}
                         </CommunicationsResults>
                       </CommunicationsElements>
                       <CommunicationsElements>

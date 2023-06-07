@@ -1,16 +1,20 @@
 import styled from "styled-components";
 import { Input, Button } from "antd";
-const Container = styled.div`
+interface DarkModeProps {
+  isDarkMode: boolean;
+}
+const Container = styled.div<DarkModeProps>`
   background-color: ${(props) => (props.isDarkMode ? "#141D2F" : "#ffffff")};
 `;
-const Wrapper = styled.div`
-  font-family: "Space Mono", sans-serif;
+const Wrapper = styled.div<DarkModeProps>`
+  font-family: "Space Mono", monospace;
   font-style: normal;
   margin: 0 318px;
   font-weight: 400;
   padding-bottom: 105px;
+  height: 100vh;
   background-color: ${(props) => (props.isDarkMode ? "#141D2F" : "#ffffff")};
-  @media only screen and (min-width: 320px) and (max-width: 598px) {
+  @media only screen and (min-width: 320px) and (max-width: 820px) {
     margin: 0 32px;
   }
 `;
@@ -21,12 +25,12 @@ const Header = styled.div`
   align-items: center;
   margin-bottom: 35px;
 `;
-const TitleHeader = styled.div`
+const TitleHeader = styled.div<DarkModeProps>`
   font-size: 26px;
   line-height: 39px;
   color: ${(props) => (props.isDarkMode ? "#ffffff" : "#4b6a9b")};
 `;
-const ButtonHeader = styled.button`
+const ButtonHeader = styled.button<DarkModeProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,14 +43,17 @@ const ButtonHeader = styled.button`
 
   cursor: pointer;
 `;
-const InputSearch = styled(Input.Search)`
+const InputSearch = styled(Input.Search)<DarkModeProps>`
   box-shadow: 0px 16px 30px rgba(70, 96, 187, 0.2);
   border-radius: 15px;
-  padding: 10px;
+  padding: 0 10px;
   margin-bottom: 24px;
   background-color: ${(props) => (props.isDarkMode ? "#1E2A47" : "#fefefe")};
   .ant-input::placeholder {
     color: ${(props) => (props.isDarkMode ? "#ffffff" : "#2b3442")};
+  }
+  .ant-input-group .ant-input-group-addon {
+    background-color: ${(props) => (props.isDarkMode ? "#1E2A47" : "#fefefe")};
   }
   .ant-input:focus,
   .ant-input:hover,
@@ -65,6 +72,7 @@ const InputSearch = styled(Input.Search)`
     font-size: 16px !important;
     line-height: 24px !important;
     text-align: center;
+    border: none;
   }
   .ant-input-affix-wrapper {
     padding: 0;
@@ -76,25 +84,46 @@ const InputSearch = styled(Input.Search)`
     font-family: "Space Mono";
     font-size: 16px;
     line-height: 24px;
-    color: #2b3442;
-    padding: 4px 0;
-    height: 52px;
+    color: ${(props) => (props.isDarkMode ? "#ffffff" : "#2b3442")};
+    padding: 19px 0;
+  }
+  @media only screen and (min-width: 320px) and (max-width: 598px) {
+    margin-bottom: 16px;
+    .ant-input-affix-wrapper {
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .ant-btn {
+      padding: 12px 16px;
+    }
+    .ant-input::placeholder {
+      font-size: 13px;
+      line-height: 19px;
+    }
+    img {
+      margin-right: 1px !important;
+      width: 17px;
+      height: 17px;
+    }
   }
 `;
 const ButtonSearch = styled(Button)`
   background: #0079ff;
 `;
-const Content = styled.div`
+const Content = styled.div<DarkModeProps>`
   background-color: ${(props) => (props.isDarkMode ? "#1E2A47" : "#fefefe")};
   box-shadow: 0px 16px 30px rgba(70, 96, 187, 0.2);
   border-radius: 15px;
-  padding: 40px;
+  padding: 40px 40px 22px 40px;
   position: relative;
   z-index: 99999;
   display: flex;
   @media only screen and (min-width: 320px) and (max-width: 598px) {
     padding: 24px;
     height: 455px;
+  }
 `;
 const MainContent = styled.div`
   width: 100%;
@@ -127,7 +156,11 @@ const ContentImg = styled.img`
     margin-right: 20px;
   }
 `;
-const Name = styled.div`
+const Name = styled.div<DarkModeProps>`
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin-block-start: 0;
   margin-block-end: 0;
   font-size: 26px;
@@ -136,9 +169,10 @@ const Name = styled.div`
   @media only screen and (min-width: 320px) and (max-width: 598px) {
     font-size: 16px;
     line-height: 24px;
+    max-width: 150px;
   }
 `;
-const DayJoin = styled.div`
+const DayJoin = styled.div<DarkModeProps>`
   margin-block-start: 10px;
   margin-block-end: 0;
   font-size: 14px;
@@ -155,8 +189,7 @@ const UserName = styled.div`
   margin-block-end: 0;
   font-size: 16px;
   line-height: 24px;
-  color: ${(props) =>
-    props.isDarkMode ? "rgba(255, 255, 255, 0.5)" : "#0079ff"};
+  color: #0079ff;
   margin-bottom: 16px;
   @media only screen and (min-width: 320px) and (max-width: 598px) {
     font-size: 13px;
@@ -164,31 +197,32 @@ const UserName = styled.div`
     margin-bottom: 0;
   }
 `;
-const Profile = styled.div`
+const Profile = styled.div<DarkModeProps>`
   font-size: 14px;
   line-height: 25px;
-  color: #4b6a9b;
+  color: ${(props) =>
+    props.isDarkMode ? "rgba(255, 255, 255, 0.5)" : "#4b6a9b"};
   margin-bottom: 36px;
 `;
-const RepositoryContent = styled.div`
+const RepositoryContent = styled.div<DarkModeProps>`
   padding: 18px 32px;
   background-color: ${(props) => (props.isDarkMode ? "#141D2F" : "#f6f8ff")};
   border-radius: 10px;
   display: flex;
   margin-bottom: 36px;
   @media only screen and (min-width: 320px) and (max-width: 598px) {
-    padding: 18px 27px 18px 0;
+    padding: 18px 20px 18px 0;
     margin-bottom: 24px;
   }
 `;
 
-const RepositoryTitle = styled.div`
+const RepositoryTitle = styled.div<DarkModeProps>`
   font-size: 13px;
   line-height: 19px;
   color: ${(props) => (props.isDarkMode ? "#FFFFFF" : "#4b6a9b")};
   margin-bottom: 9px;
 `;
-const RepositoryResult = styled.div`
+const RepositoryResult = styled.div<DarkModeProps>`
   font-size: 22px;
   line-height: 33px;
   color: ${(props) =>
@@ -227,7 +261,11 @@ const CommunicationsElements = styled.div`
 const CommunicationsIcons = styled.div`
   margin-right: 14px;
 `;
-const CommunicationsResults = styled.div`
+const CommunicationsResults = styled.div<DarkModeProps>`
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 14px;
   line-height: 21px;
   color: ${(props) =>
@@ -235,6 +273,7 @@ const CommunicationsResults = styled.div`
   @media only screen and (min-width: 320px) and (max-width: 598px) {
     font-size: 13px;
     line-height: 19px;
+    max-width: 150px;
   }
 `;
 
