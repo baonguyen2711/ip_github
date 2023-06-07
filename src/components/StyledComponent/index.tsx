@@ -88,6 +88,7 @@ const InputSearch = styled(Input.Search)<DarkModeProps>`
     font-family: "Space Mono";
     font-size: 16px;
     line-height: 24px;
+    transition: unset;
     color: ${(props) => (props.isDarkMode ? "#ffffff" : "#2b3442")};
     padding: 19px 0;
   }
