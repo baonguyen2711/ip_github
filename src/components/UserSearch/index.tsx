@@ -32,8 +32,8 @@ import iconLocation from "../../assets/images/iconLocation.svg";
 import iconLocationWhite from "../../assets/images/iconLocationWhite.svg";
 import iconLink from "../../assets/images/iconLink.svg";
 import iconLinkWhite from "../../assets/images/iconLinkWhite.svg";
-import iconWitter from "../../assets/images/iconWitter.svg";
-import iconWitterWhite from "../../assets/images/iconWitterWhite.svg";
+import iconTwitter from "../../assets/images/iconTwitter.svg";
+import iconTwitterWhite from "../../assets/images/iconTwitterWhite.svg";
 import iconGithub from "../../assets/images/iconGithub.svg";
 import iconGithubWhite from "../../assets/images/iconGithubWhite.svg";
 import iconSearch from "../../assets/images/iconSearch.svg";
@@ -53,6 +53,7 @@ type UserData = {
   location: string | null;
   blog: string | null;
   html_url: string;
+  twitter_username: string | null;
 };
 const UserSearch = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
@@ -231,16 +232,16 @@ const UserSearch = () => {
                         <CommunicationsIcons>
                           {isDarkMode ? (
                             <>
-                              <img src={iconWitterWhite} alt="" />
+                              <img src={iconTwitterWhite} alt="" />
                             </>
                           ) : (
                             <>
-                              <img src={iconWitter} alt="" />
+                              <img src={iconTwitter} alt="" />
                             </>
                           )}
                         </CommunicationsIcons>
                         <CommunicationsResults isDarkMode={isDarkMode}>
-                          Not available
+                          {userData.twitter_username ?? "Not available"}
                         </CommunicationsResults>
                       </CommunicationsElements>
                     </div>
