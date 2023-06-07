@@ -55,6 +55,7 @@ const InputSearch = styled(Input.Search)<DarkModeProps>`
   }
   .ant-input-group .ant-input-group-addon {
     background-color: ${(props) => (props.isDarkMode ? "#1E2A47" : "#fefefe")};
+    transition: unset;
   }
   .ant-input:focus,
   .ant-input:hover,
@@ -76,10 +77,12 @@ const InputSearch = styled(Input.Search)<DarkModeProps>`
     border: none;
   }
   .ant-input-affix-wrapper {
+    transition: unset;
     padding: 0;
     border: none;
     background-color: ${(props) => (props.isDarkMode ? "#1E2A47" : "#fefefe")};
   }
+
   .ant-input-group .ant-input {
     background-color: ${(props) => (props.isDarkMode ? "#1E2A47" : "#fefefe")};
     font-family: "Space Mono";
