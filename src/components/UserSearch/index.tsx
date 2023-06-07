@@ -84,6 +84,8 @@ const UserSearch = () => {
         `https://api.github.com/users/${username}`
       );
       setUserData(response.data);
+      console.log("a", response.data);
+
       setShowError(false);
     } catch (error) {
       console.error(error);

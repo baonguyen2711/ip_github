@@ -7,15 +7,16 @@ const Container = styled.div<DarkModeProps>`
   background-color: ${(props) => (props.isDarkMode ? "#141D2F" : "#ffffff")};
 `;
 const Wrapper = styled.div<DarkModeProps>`
+  width: 730px;
   font-family: "Space Mono", monospace;
   font-style: normal;
-  margin: 0 318px;
+  margin: 0 auto;
   font-weight: 400;
   padding-bottom: 105px;
   height: 100vh;
   background-color: ${(props) => (props.isDarkMode ? "#141D2F" : "#ffffff")};
-  @media only screen and (min-width: 320px) and (max-width: 820px) {
-    margin: 0 32px;
+  @media only screen and (min-width: 320px) and (max-width: 598px) {
+    width: 327px;
   }
 `;
 const Header = styled.div`
